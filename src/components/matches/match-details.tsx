@@ -1,3 +1,8 @@
+import { WinPredictor } from "./win-predictor";
+import Image from "next/image";
+import { FormationPitch } from "./formation-pitch";
+import { MatchOverview, MatchupPreview } from "./match-overview";
+import { KeyMatchups } from "./key-matchups";
 import { MatchDetailTabs } from "./match-detail-tabs";
 import { GoalScorers } from "./goal-scorers";
 import { SubstitutionMarkers } from "./substitution-markers";
@@ -20,23 +25,29 @@ export function MatchDetailsView({ match }: { match: MatchDetails }) {
   return <div className="space-y-6">
     <section className={panel} aria-label="Match overview">
       <p className="text-sm font-medium text-primary">{match.league.country} · {match.league.name}</p>
-      <h1 className="mt-3 text-2xl font-bold sm:text-3xl">{home.name} vs {away.name}</h1>
-      <p className="mt-3 text-sm text-muted-foreground"><KickoffTime date={match.fixture.date} /></p>
-      <div className="my-8 grid grid-cols-[1fr_auto_1fr] items-center gap-4 text-center">
-        <p className="font-semibold sm:text-xl">{home.name}</p>
+      <h1 className="sr-only">{home.name} vs {away.name}</h1>
+      <p className="mt-1 text-xs text-muted-foreground"><KickoffTime date={match.fixture.date} /></p>
+      <div className="my-4 grid grid-cols-[1fr_auto_1fr] items-center gap-4 text-center">
+        <div className="flex min-w-0 flex-col items-center gap-2 sm:gap-3">
+          {home.logo && <Image src={home.logo} alt="" width={80} height={80} unoptimized className="size-14 object-contain sm:size-20" />}
+          <p className="max-w-full text-sm font-semibold sm:text-xl [overflow-wrap:anywhere]">{home.name}</p>
+        </div>
         <p className="text-3xl font-bold tabular-nums sm:text-5xl">{match.goals.home ?? "–"} : {match.goals.away ?? "–"}</p>
-        <p className="font-semibold sm:text-xl">{away.name}</p>
+        <div className="flex min-w-0 flex-col items-center gap-2 sm:gap-3">
+          {away.logo && <Image src={away.logo} alt="" width={80} height={80} unoptimized className="size-14 object-contain sm:size-20" />}
+          <p className="max-w-full text-sm font-semibold sm:text-xl [overflow-wrap:anywhere]">{away.name}</p>
+        </div>
       </div>
       <GoalScorers match={match} />
       <p className={`text-center text-sm font-semibold ${isLive(match) ? "text-destructive" : "text-muted-foreground"}`}>
         {match.fixture.status.long}{isLive(match) && match.fixture.status.elapsed !== null ? ` · ${match.fixture.status.elapsed}′` : ""}
       </p>
       {penalties?.home != null && penalties.away != null && <p className="mt-2 text-center text-sm">Penalties: {penalties.home} – {penalties.away}</p>}
-      {match.fixture.venue?.name && <p className={empty}>{match.fixture.venue.name}{match.fixture.venue.city ? ` · ${match.fixture.venue.city}` : ""}</p>}
-      {match.fixture.referee && <p className="mt-2 text-sm text-muted-foreground">Referee: {match.fixture.referee}</p>}
-      <p className={empty}>Match data may be up to five minutes old. Reload to check for updates.</p>
     </section>
     <MatchDetailTabs
+      overview={<><MatchOverview match={match} /><WinPredictor key={match.fixture.id} match={match} /></>}
+      preview={<MatchupPreview match={match} />}
+      matchups={<KeyMatchups match={match} />}
       statistics={<section className={panel}>
       <h2 className="text-xl font-semibold">Statistics</h2>
       {!labels.length ? <p className={empty}>Statistics are not available for this match yet.</p> : <div className="mt-5 overflow-x-auto"><table className="w-full text-sm">
@@ -47,6 +58,7 @@ export function MatchDetailsView({ match }: { match: MatchDetails }) {
     </section>}
       lineups={<section className={panel}>
       <h2 className="text-xl font-semibold">Lineups</h2>
+      <FormationPitch match={match} />
       <div className="mt-5 grid gap-8 md:grid-cols-2">{[home, away].map((team) => {
         const lineup = lineups.find((item) => item.team.id === team.id);
         return <div key={team.id}><h3 className="font-semibold">{team.name}{lineup?.formation ? ` · ${lineup.formation}` : ""}</h3>

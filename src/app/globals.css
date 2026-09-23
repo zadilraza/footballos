@@ -4,6 +4,11 @@
 
 /* TweakCN Cyberpunk light theme: https://tweakcn.com/r/themes/cyberpunk.json */
 :root {
+  --matchup-heat: #b45309;
+  --matchup-glow: #f973161a;
+  --pitch: #166534;
+  --pitch-foreground: #f0fdf4;
+  --pitch-line: #86b89a;
   --substitution-in: #15803d;
   --substitution-out: #dc2626;
   --background: oklch(0.9816 0.0017 247.8390);
@@ -64,6 +69,11 @@
 
 /* Preserve the original FootballOS dark theme. */
 .dark {
+  --matchup-heat: #fb923c;
+  --matchup-glow: #f9731626;
+  --pitch: #123d27;
+  --pitch-foreground: #f0fdf4;
+  --pitch-line: #628e73;
   --substitution-in: #4ade80;
   --substitution-out: #f87171;
   color-scheme: dark;
@@ -94,6 +104,10 @@
 
 /* Both modes remain editable through TweakCN live preview. */
 @theme inline {
+  --color-matchup-heat: var(--matchup-heat);
+  --color-pitch: var(--pitch);
+  --color-pitch-foreground: var(--pitch-foreground);
+  --color-pitch-line: var(--pitch-line);
   --color-substitution-in: var(--substitution-in);
   --color-substitution-out: var(--substitution-out);
   --color-background: var(--background);
@@ -146,4 +160,36 @@ html[data-magicui-theme-vt="active"]::view-transition-group(root) {
 }
 html[data-magicui-theme-vt="active"]::view-transition-new(root) {
   clip-path: var(--magicui-theme-vt-clip-from);
+}
+
+/* Odds has a scoped market-desk palette; the rest of FootballOS is unchanged. */
+.odds-arena {
+  --background: #f1f4f1;
+  --foreground: #14231b;
+  --card: #ffffff;
+  --card-foreground: #14231b;
+  --muted: #e5ebe6;
+  --muted-foreground: #53645a;
+  --primary: #176b37;
+  --primary-foreground: #ffffff;
+  --border: #c9d5cc;
+  --input: #a8bcae;
+  --accent: #d3e9da;
+  --accent-foreground: #14231b;
+  --ring: #176b37;
+}
+.dark .odds-arena {
+  --background: #090e12;
+  --foreground: #edf5f1;
+  --card: #10191f;
+  --card-foreground: #edf5f1;
+  --muted: #17232b;
+  --muted-foreground: #9caeb7;
+  --primary: #c4f550;
+  --primary-foreground: #102008;
+  --border: #293b46;
+  --input: #405965;
+  --accent: #243b32;
+  --accent-foreground: #edf5f1;
+  --ring: #c4f550;
 }

@@ -9,13 +9,15 @@ export function useMatches(selectedDate: string) {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    const controller = new AbortController();
     async function loadMatches() {
       try {
         setLoading(true);
         setError("");
 
         const response = await fetch(
-          `/api/matches?date=${selectedDate}`
+          `/api/matches?date=${selectedDate}`,
+          { signal: controller.signal }
         );
 
         if (!response.ok) {
@@ -24,16 +26,21 @@ export function useMatches(selectedDate: string) {
 
         const data: ApiResponse = await response.json();
 
-        setMatches(data.response || []);
+        if ((data.errors && Object.keys(data.errors).length > 0) || !Array.isArray(data.response)) {
+          throw new Error("Football data unavailable");
+        }
+        setMatches(data.response);
       } catch (err) {
+        if (controller.signal.aborted) return;
         console.error(err);
         setError("Could not load football matches.");
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) setLoading(false);
       }
     }
 
     loadMatches();
+    return () => controller.abort();
   }, [selectedDate]);
 
   return { matches, loading, error };

@@ -60,9 +60,9 @@ export function MatchList({ matches, dateOffset }: { matches: Fixture[]; dateOff
         {groups.map(({ league, matches: fixtures, total }) => <section key={league.id} aria-labelledby={`league-${league.id}`} className="overflow-hidden rounded-2xl border border-border bg-card text-card-foreground">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-muted px-5 py-4 text-muted-foreground">
             <div><p className="text-xs uppercase tracking-wider">{league.country}</p><h3 id={`league-${league.id}`} className="mt-1 font-semibold text-card-foreground">{league.name}</h3></div>
-            <div className="flex items-center gap-2"><FavoriteButton name={league.name} selected={favorites.competitions.includes(league.id)} onToggle={() => { toggle("competitions", league.id); setLimit(MATCH_PAGE_SIZE); }} /><p className="text-xs">{fixtures.length === total ? `${total} fixtures` : `${fixtures.length} of ${total} fixtures`}</p></div>
+            <div className="flex items-center gap-2"><FavoriteButton name={league.name} selected={favorites.competitions.includes(league.id)} onToggle={() => { toggle("competitions", league.id, league); setLimit(MATCH_PAGE_SIZE); }} /><p className="text-xs">{fixtures.length === total ? `${total} fixtures` : `${fixtures.length} of ${total} fixtures`}</p></div>
           </div>
-          <div className="divide-y divide-border">{fixtures.map((match) => <MatchRow key={match.fixture.id} match={match} favorites={favorites} onToggleTeam={(id) => { toggle("teams", id); setLimit(MATCH_PAGE_SIZE); }} />)}</div>
+          <div className="divide-y divide-border">{fixtures.map((match) => <MatchRow key={match.fixture.id} match={match} favorites={favorites} onToggleTeam={(id) => { toggle("teams", id, id === match.teams.home.id ? match.teams.home : match.teams.away); setLimit(MATCH_PAGE_SIZE); }} />)}</div>
         </section>)}
       </div>}
 
