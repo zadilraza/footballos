@@ -13,7 +13,7 @@ import { MatchList } from "./match-list";
 export function MatchdayDashboard({ children }: { children: React.ReactNode }) {
   const [dateOffset, setDateOffset] = useState(0);
   const selectedDate = useMemo(() => getDateFromOffset(dateOffset), [dateOffset]);
-  const { matches, loading, error } = useMatches(selectedDate);
+  const { matches, loading, error, retry } = useMatches(selectedDate);
 
   const liveMatches = matches.filter(isLive).sort(compareMatches);
   const featured = topMatches(matches);
@@ -69,10 +69,11 @@ export function MatchdayDashboard({ children }: { children: React.ReactNode }) {
 
         {/* ERROR */}
         {!loading && error && (
-          <div className="my-10 rounded-2xl border border-destructive/20 bg-destructive/5 p-6">
+          <div role="alert" className="my-10 rounded-2xl border border-destructive/20 bg-destructive/5 p-6">
             <p className="font-medium text-destructive">
               {error}
             </p>
+            <button type="button" onClick={retry} className="mt-4 rounded-full border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground hover:bg-accent">Try again</button>
           </div>
         )}
 
