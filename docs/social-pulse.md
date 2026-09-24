@@ -1,6 +1,6 @@
 # Social Pulse
 
-Every match row, live card, and Match Center has a Social Pulse button. It opens an accessible modal drawer, with All, X, Instagram, and TikTok filters. The drawer loads data only when opened. It never invents posts, activity counts, or engagement.
+Every match row, live card, and Match Center has a Social Pulse button. It opens an accessible floating modal with a pink/purple identity and The mix, X, Instagram, and TikTok filters. The modal loads data only when opened. It never invents posts, activity counts, or engagement.
 
 ## No paid social APIs
 
@@ -29,4 +29,4 @@ Official TikTok embed reference: https://developers.tiktok.com/doc/embed-player
 
 When no posts exist, visitors see an honest empty state and date/team-scoped external searches. Instagram discovery explicitly opens a Google site search. External search results are not a verified feed.
 
-Check desktop and mobile drawer opening, platform filters, closing with Escape/backdrop/close button, focus returning to the trigger, scrolling, source outage/retry, invalid fixture IDs (HTTP 400), and isolation between fixtures. `npm run lint` and `npm run build` validate integration.
+Check desktop and mobile modal opening, platform filters, closing with Escape/backdrop/close button, focus returning to the trigger, scrolling, source outage/retry, invalid fixture IDs (HTTP 400), and isolation between fixtures. `npm run lint` and `npm run build` validate integration.

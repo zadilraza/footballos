@@ -193,3 +193,96 @@ html[data-magicui-theme-vt="active"]::view-transition-new(root) {
   --accent-foreground: #edf5f1;
   --ring: #c4f550;
 }
+
+/* Social Pulse's own identity; intentionally independent of the matchday theme. */
+.pulse-world {
+  --background: #130c20;
+  --foreground: #fff6ff;
+  --card: #20142e;
+  --card-foreground: #fff6ff;
+  --muted: #30223e;
+  --muted-foreground: #bbabc9;
+  --border: #453050;
+  --primary: #ff8acb;
+  --ring: #ff8acb;
+  --pulse-pink: #ff58b5;
+  --pulse-purple: #9257ff;
+  --pulse-cyan: #6af7e6;
+}
+.pulse-trigger {
+  color: var(--foreground);
+  background: linear-gradient(115deg, #a52671, #6430bd);
+  border: 1px solid #e875d1;
+  box-shadow: 0 3px 14px #c137a329;
+  transition: transform 180ms, box-shadow 180ms;
+}
+.pulse-trigger:hover { transform: translateY(-2px) rotate(-2deg); box-shadow: 0 4px 20px #dc42bc55; }
+.pulse-dialog::backdrop { background: #090511bb; backdrop-filter: blur(9px); }
+.pulse-stage {
+  position: relative;
+  width: min(760px, calc(100% - 48px));
+  max-height: calc(100dvh - 48px);
+  margin: 24px auto;
+  border: 1px solid #895187;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 32px 120px #0009, 0 0 80px #bd3b9826;
+  animation: pulse-arrive 320ms cubic-bezier(.2,.8,.2,1) both;
+}
+.pulse-header { padding: 22px 28px 0; background: radial-gradient(ellipse at 95% 5%, #66328799, transparent 60%), var(--background); }
+.pulse-eyebrow { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 800; letter-spacing: .17em; color: var(--primary); }
+.pulse-close { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 50%; color: var(--foreground); background: #20142eaa; }
+.pulse-close:hover { background: var(--muted); }
+.pulse-title-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0 20px; }
+.pulse-title { font-size: clamp(42px, 7vw, 72px); line-height: .87; font-weight: 950; letter-spacing: -.07em; font-style: italic; }
+.pulse-title > span { display: block; color: var(--pulse-pink); }
+.pulse-period { color: var(--pulse-purple); }
+.pulse-signal { display: flex; align-items: center; gap: 7px; height: 85px; transform: rotate(-12deg); margin-right: 35px; }
+.pulse-signal i { display: block; width: 10px; height: 36%; border-radius: 10px; background: linear-gradient(var(--pulse-pink), var(--pulse-purple)); animation: pulse-beat 1600ms ease-in-out 2 alternate; }
+.pulse-signal i:nth-child(2n) { height: 70%; animation-delay: 150ms; }
+.pulse-signal i:nth-child(3n) { height: 100%; animation-delay: 300ms; }
+.pulse-fixture { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 12px; padding: 13px 0; border-top: 1px solid var(--border); }
+.pulse-fixture p { font-size: 14px; font-weight: 650; }
+.pulse-match-label { font-size: 9px; letter-spacing: .1em; font-weight: 800; color: var(--primary); }
+.pulse-tabs { display: flex; gap: 6px; padding: 8px 0 0; overflow-x: auto; }
+.pulse-tab { display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0; padding: 12px 15px; font-size: 12px; font-weight: 650; border-bottom: 3px solid transparent; color: var(--muted-foreground); }
+.pulse-tab:hover { color: var(--foreground); }
+.pulse-tab[aria-pressed="true"] { color: var(--primary); border-color: var(--pulse-pink); }
+.pulse-tab[data-platform="x"][aria-pressed="true"] { color: white; border-color: white; }
+.pulse-tab[data-platform="tiktok"][aria-pressed="true"] { color: var(--pulse-cyan); border-color: var(--pulse-cyan); }
+.pulse-empty { padding: 0 0 20px; }
+.pulse-empty h3 { margin: 10px 0; font-size: clamp(25px, 4vw, 34px); line-height: 1.08; font-weight: 800; letter-spacing: -.04em; }
+.pulse-empty h3 span { color: var(--primary); }
+.pulse-empty > p:last-child { font-size: 13px; color: var(--muted-foreground); }
+.pulse-portals { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+.pulse-portal { display: flex; flex-direction: column; min-width: 0; padding: 18px; border-radius: 17px; border: 1px solid #ffffff30; color: #fff; transition: transform 180ms; }
+.pulse-portal:hover { transform: translateY(-4px) rotate(-1deg); }
+.pulse-portal-top { display: flex; align-items: center; justify-content: space-between; height: 32px; margin-bottom: 22px; }
+.pulse-x { font-size: 30px; line-height: 1; }
+.pulse-portal strong { font-size: 19px; letter-spacing: -.03em; }
+.pulse-portal > span:not(.pulse-portal-top) { font-size: 11px; margin-top: 3px; }
+.pulse-portal small { font-size: 10px; margin-top: 17px; opacity: .9; }
+.pulse-portal[data-platform="x"] { background: #09090c; }
+.pulse-portal[data-platform="instagram"] { background: linear-gradient(145deg, #6132bc, #a72484 65%, #ad3b50); }
+.pulse-portal[data-platform="tiktok"] { background: #101f25; border-color: #397477; box-shadow: inset 3px 0 #6af7e6, inset -3px 0 #ff58a7; }
+.pulse-portal[data-platform="tiktok"] .pulse-portal-top { color: var(--pulse-cyan); }
+.pulse-footer { display: flex; justify-content: space-between; align-items: center; padding: 13px 28px; border-top: 1px solid var(--border); color: var(--muted-foreground); font-size: 9px; font-weight: 700; letter-spacing: .16em; }
+@keyframes pulse-arrive { from { opacity: 0; transform: translateY(20px) scale(.96) rotate(-1deg); } to { opacity: 1; transform: none; } }
+@keyframes pulse-beat { to { transform: scaleY(.5); } }
+@media (max-width: 540px) {
+  .pulse-stage { width: calc(100% - 20px); margin: 10px auto; max-height: calc(100dvh - 20px); border-radius: 22px; }
+  .pulse-header { padding: 16px 20px 0; }
+  .pulse-title-row { padding-top: 18px; }
+  .pulse-signal { margin-right: 5px; gap: 5px; height: 62px; }
+  .pulse-signal i { width: 7px; }
+  .pulse-tab { padding: 10px; }
+  .pulse-portals { gap: 8px; }
+  .pulse-portal { padding: 13px 10px; border-radius: 13px; }
+  .pulse-portal strong { font-size: 16px; }
+  .pulse-portal-top { margin-bottom: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-stage, .pulse-signal i { animation: none; }
+  .pulse-trigger, .pulse-portal { transition: none; }
+  .pulse-trigger:hover, .pulse-portal:hover { transform: none; }
+}
