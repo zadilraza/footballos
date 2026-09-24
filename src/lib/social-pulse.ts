@@ -11,7 +11,6 @@ export type SocialPost = {
 };
 export type SocialFeed = {
   posts: SocialPost[];
-  xStatus: "ready" | "unconfigured" | "unavailable" | "outside-window";
 };
 export const SOCIAL_PLATFORMS = [
   { id: "x", label: "X" },

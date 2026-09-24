@@ -2,11 +2,11 @@
 
 Every match row, live card, and Match Center has a Social Pulse button. It opens an accessible modal drawer, with All, X, Instagram, and TikTok filters. The drawer loads data only when opened. It never invents posts, activity counts, or engagement.
 
-## Automatic X posts
+## No paid social APIs
 
-Set `X_BEARER_TOKEN` as a server-side environment variable locally and in Vercel, then redeploy. Never prefix it with NEXT_PUBLIC or commit its value. The X project must have recent-search access and sufficient usage credits. The server searches both team names, excludes reposts, and limits results to 12 hours before kickoff through 24 hours after. Recent search only covers approximately the last seven days; older fixtures use curated posts and external search. Exact team-name matching favors relevance but can miss nicknames and hashtags; keyword searches cannot guarantee every result discusses the fixture. Results are cached for five minutes. An unavailable X source does not hide curated posts.
+Social Pulse uses manually selected posts and external match searches. The endpoint reads only the bundled data file: it makes no X, Instagram, TikTok, or football API requests. No social API credentials or subscriptions are required, and setting an X token does not enable automatic fetching. Hosting and the existing football data service remain separate from this feature.
 
-Official reference: https://docs.x.com/x-api/posts/search/introduction
+The owner wants to avoid spending money on this project. Do not enable paid social integrations unless explicitly requested later.
 
 ## Match-specific Instagram, TikTok, and curated X posts
 
@@ -21,7 +21,7 @@ Add reviewed public post metadata to `src/data/social-posts.json`, then build an
 
 Verify the post actually concerns that fixture (including its date), not just one of the teams. Supported URLs are X `/username/status/id`, Instagram `/p/shortcode/` or `/reel/shortcode/`, and TikTok `/@username/video/id`. Invalid records are excluded. Posts are sorted newest first and deduplicated by URL. Instagram and TikTok embeds load only when the visitor selects “Load post”; the original link remains available if a platform blocks embedding or requires login. Removed/private posts may stop displaying.
 
-This is a curated source for Instagram and TikTok, not an automatic discovery integration. To automate discovery, connect a licensed feed provider and map reviewed results to the same fixture-keyed schema. Do not scrape private content or substitute a generic team timeline.
+All three platforms use curated posts. To add content, collect the public post URL and FootballOS match URL, verify the caption and timestamp, and add the record above. There is no admin form yet. Do not add a subscription or automatic paid discovery service.
 
 Official TikTok embed reference: https://developers.tiktok.com/doc/embed-player
 
