@@ -13,10 +13,9 @@ export function SocialPulse() {
           </h2>
 
           <p className="mt-4 max-w-xl leading-7 text-muted-foreground">
-            FootballOS will connect live match events with
-            reactions, player moments, analysis, TikToks,
-            Instagram Reels, and the conversation surrounding
-            each game.
+            Tap Social Pulse beside a match to explore its conversation on X,
+            Instagram, and TikTok. Available posts stay with that fixture,
+            with match-specific searches when the feed is quiet.
           </p>
         </div>
 
@@ -25,7 +24,7 @@ export function SocialPulse() {
             <p className="font-semibold">Social Pulse</p>
 
             <span className="text-xs font-medium text-primary">
-              COMING SOON
+              MATCH BY MATCH
             </span>
           </div>
 
@@ -52,11 +51,11 @@ export function SocialPulse() {
 
             <div className="rounded-xl border border-border bg-secondary text-secondary-foreground p-4">
               <p className="text-xs text-muted-foreground">
-                Match Analysis
+                X
               </p>
 
               <p className="mt-2 text-sm">
-                Tactical discussion and player performances
+                Match reactions and tactical discussion
               </p>
             </div>
           </div>

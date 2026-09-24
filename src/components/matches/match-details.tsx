@@ -1,3 +1,4 @@
+import { SocialPulse } from "./social-pulse";
 import { WinPredictor } from "./win-predictor";
 import Image from "next/image";
 import { FormationPitch } from "./formation-pitch";
@@ -43,6 +44,7 @@ export function MatchDetailsView({ match }: { match: MatchDetails }) {
         {match.fixture.status.long}{isLive(match) && match.fixture.status.elapsed !== null ? ` · ${match.fixture.status.elapsed}′` : ""}
       </p>
       {penalties?.home != null && penalties.away != null && <p className="mt-2 text-center text-sm">Penalties: {penalties.home} – {penalties.away}</p>}
+      <div className="mt-5 flex justify-center"><SocialPulse match={match} /></div>
     </section>
     <MatchDetailTabs
       overview={<><MatchOverview match={match} /><WinPredictor key={match.fixture.id} match={match} /></>}

@@ -1,3 +1,4 @@
+import { SocialPulse } from "./social-pulse";
 import { FavoriteButton } from "@/components/favorites/favorite-button";
 import type { Favorites } from "@/lib/favorites";
 import Link from "next/link";
@@ -9,7 +10,7 @@ export function MatchRow({ match, favorites, onToggleTeam }: { match: Fixture; f
   const status = getStatusLabel(match);
 
   return (
-    <div className="relative grid gap-5 px-5 py-5 transition-colors hover:bg-accent hover:text-accent-foreground sm:grid-cols-[210px_1fr_110px] sm:items-center [&>div]:pointer-events-none">
+    <div className="relative grid gap-5 px-5 py-5 transition-colors hover:bg-accent hover:text-accent-foreground sm:grid-cols-[210px_1fr_150px] sm:items-center [&>div]:pointer-events-none">
       <Link href={`/matches/${match.fixture.id}`} prefetch={false} aria-label={`Open ${match.teams.home.name} vs ${match.teams.away.name} Match Center`} className="absolute inset-0 rounded-lg" />
       <div>
         <div className="flex items-center gap-3">
@@ -75,7 +76,7 @@ export function MatchRow({ match, favorites, onToggleTeam }: { match: Fixture; f
         </div>
       </div>
 
-      <div className="sm:text-right">
+      <div className="flex flex-wrap items-center gap-3 sm:flex-col sm:items-end sm:text-right">
         <span
           className={
             live
@@ -86,6 +87,7 @@ export function MatchRow({ match, favorites, onToggleTeam }: { match: Fixture; f
           {live && "● "}
           {status}
         </span>
+        <SocialPulse match={match} />
       </div>
     </div>
   );

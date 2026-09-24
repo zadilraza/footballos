@@ -1,3 +1,4 @@
+import { SocialPulse } from "./social-pulse";
 import Link from "next/link";
 import type { Fixture } from "@/types/football";
 import { getStatusLabel } from "@/lib/matches";
@@ -69,10 +70,11 @@ export function MatchCard({ match }: { match: Fixture }) {
         </div>
       </div>
 
-      <div className="mt-6 border-t border-border pt-4">
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
         <Link href={`/matches/${match.fixture.id}`} prefetch={false} className="text-sm font-medium text-primary">
           Open Match Center →
         </Link>
+        <SocialPulse match={match} />
       </div>
     </article>
   );
