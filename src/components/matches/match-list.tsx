@@ -30,7 +30,7 @@ export function MatchList({ matches, dateOffset }: { matches: Fixture[]; dateOff
             {dateOffset === -1 ? "Yesterday's Matches" : dateOffset === 1 ? "Tomorrow's Matches" : "Today's Matches"}
           </h2>
         </div>
-        <p className="text-sm text-muted-foreground">{matches.length} fixtures</p>
+        <p className="text-sm text-muted-foreground">{matches.length} fixtures · Biggest matches first</p>
       </div>
 
       <div className="mb-6 space-y-4">

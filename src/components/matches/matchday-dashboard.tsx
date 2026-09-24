@@ -6,6 +6,8 @@ import { getDateFromOffset, isLive } from "@/lib/matches";
 import { Navbar } from "@/components/layout/navbar";
 import { DateSelector } from "./date-selector";
 import { LiveMatches } from "./live-matches";
+import { compareMatches, topMatches } from "@/lib/match-discovery";
+import { MatchCard } from "./match-card";
 import { MatchList } from "./match-list";
 
 export function MatchdayDashboard({ children }: { children: React.ReactNode }) {
@@ -13,7 +15,8 @@ export function MatchdayDashboard({ children }: { children: React.ReactNode }) {
   const selectedDate = useMemo(() => getDateFromOffset(dateOffset), [dateOffset]);
   const { matches, loading, error } = useMatches(selectedDate);
 
-  const liveMatches = matches.filter(isLive);
+  const liveMatches = matches.filter(isLive).sort(compareMatches);
+  const featured = topMatches(matches);
 
   const selectedDateText = new Date(
     `${selectedDate}T12:00:00`
@@ -75,6 +78,12 @@ export function MatchdayDashboard({ children }: { children: React.ReactNode }) {
 
         {!loading && !error && (
           <>
+            {featured.length > 0 && <section className="py-8" aria-labelledby="top-matches-heading">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Worth watching</p>
+              <h2 id="top-matches-heading" className="mt-2 text-2xl font-semibold">Top matches</h2>
+              <p className="mt-2 text-sm text-muted-foreground">Major competitions and standout teams for {selectedDateText}. Ranked by competition and team prominence.</p>
+              <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{featured.map((match) => <MatchCard key={match.fixture.id} match={match} />)}</div>
+            </section>}
             {/* LIVE NOW */}
             {dateOffset === 0 && (
               <LiveMatches liveMatches={liveMatches} />

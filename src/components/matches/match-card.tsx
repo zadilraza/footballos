@@ -1,7 +1,7 @@
 import { SocialPulse } from "./social-pulse";
 import Link from "next/link";
 import type { Fixture } from "@/types/football";
-import { getStatusLabel } from "@/lib/matches";
+import { getStatusLabel, isLive } from "@/lib/matches";
 export function MatchCard({ match }: { match: Fixture }) {
 
   return (
@@ -27,8 +27,8 @@ export function MatchCard({ match }: { match: Fixture }) {
           </div>
         </div>
 
-        <span className="rounded-full bg-destructive/10 px-3 py-1 text-xs font-semibold text-destructive">
-          ● {getStatusLabel(match)}
+        <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold ${isLive(match) ? "bg-destructive/10 text-destructive" : "bg-secondary text-secondary-foreground"}`}>
+          {isLive(match) ? "● " : ""}{getStatusLabel(match)}
         </span>
       </div>
 
@@ -47,7 +47,7 @@ export function MatchCard({ match }: { match: Fixture }) {
           </div>
 
           <span className="text-3xl font-bold">
-            {match.goals.home ?? 0}
+            {match.goals.home ?? "–"}
           </span>
         </div>
 
@@ -65,7 +65,7 @@ export function MatchCard({ match }: { match: Fixture }) {
           </div>
 
           <span className="text-3xl font-bold">
-            {match.goals.away ?? 0}
+            {match.goals.away ?? "–"}
           </span>
         </div>
       </div>
